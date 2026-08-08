@@ -1,16 +1,17 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { profile } from '../../data/resumeData'
+import { useScrolled, useScrollProgress } from '../../hooks/useScrollProgress'
 import styles from './Header.module.css'
 
 const NAV_ITEMS = [
-  { href: '#about', label: '關於我' },
-  { href: '#skills', label: '技能' },
-  { href: '#experience', label: '工作經歷' },
-  { href: '#projects', label: '專案作品' },
-  { href: '#other-works', label: '其餘作品' },
-  { href: '#education', label: '學歷' },
-  { href: '#contact', label: '聯絡我' },
+  { href: '#about', label: '關於我', idx: '01' },
+  { href: '#skills', label: '技能', idx: '02' },
+  { href: '#experience', label: '工作經歷', idx: '03' },
+  { href: '#projects', label: '專案作品', idx: '04' },
+  { href: '#other-works', label: '其餘作品', idx: '05' },
+  { href: '#education', label: '學歷', idx: '06' },
+  { href: '#contact', label: '聯絡我', idx: '07' },
 ]
 
 const SECTION_IDS = ['top', ...NAV_ITEMS.map((item) => item.href.slice(1))]
@@ -18,6 +19,8 @@ const SECTION_IDS = ['top', ...NAV_ITEMS.map((item) => item.href.slice(1))]
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeId, setActiveId] = useState('top')
+  const scrollProgress = useScrollProgress()
+  const scrolled = useScrolled()
 
   useEffect(() => {
     const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
@@ -44,9 +47,13 @@ function Header() {
   }, [])
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ''}`}>
+      <div className={styles.scrollProgress} style={{ width: `${scrollProgress}%` }} aria-hidden="true" />
       <div className={`container ${styles.inner}`}>
         <a href="#top" className={styles.brand}>
+          <span className={styles.logoMark} aria-hidden="true">
+            {profile.initials}
+          </span>
           {profile.nameEn}
         </a>
 
@@ -61,6 +68,9 @@ function Header() {
                 aria-current={isActive ? 'true' : undefined}
                 onClick={() => setMenuOpen(false)}
               >
+                <span className={styles.navIdx} aria-hidden="true">
+                  {item.idx}
+                </span>
                 {item.label}
               </a>
             )

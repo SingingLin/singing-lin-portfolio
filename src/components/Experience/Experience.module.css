@@ -9,6 +9,8 @@
   gap: 32px;
   padding-left: 28px;
   border-left: 2px solid var(--color-border);
+  /* 漸層時間線：越往下（越舊資歷）越淡，暗示新舊權重差異 */
+  border-image: linear-gradient(180deg, var(--color-primary), var(--color-accent-soft)) 1;
 }
 
 .item {
@@ -26,12 +28,54 @@
   box-shadow: 0 0 0 4px var(--color-primary-soft);
 }
 
+.dotPulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px var(--color-primary-soft);
+  }
+  50% {
+    box-shadow: 0 0 0 8px var(--color-primary-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dotPulse {
+    animation: none;
+  }
+}
+
 .card {
+  display: flex;
+  gap: var(--space-4);
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 22px 24px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.initial {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 2px;
+  border-radius: 8px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
 }
 
 .card:hover {
@@ -50,7 +94,7 @@
 }
 
 .company {
-  font-size: 18px;
+  font-size: var(--text-h3);
 }
 
 .period {

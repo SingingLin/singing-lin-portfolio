@@ -50,7 +50,8 @@
   padding: 11px 28px;
   border-radius: 999px;
   background: #fff;
-  color: var(--color-primary-dark);
+  /* 底色漸層右側偏琥珀，深靛紫文字在琥珀底上對比會下降，改用更深的 --color-ink 確保對比達標 */
+  color: var(--color-ink);
   font-weight: 700;
   font-size: 14.5px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;

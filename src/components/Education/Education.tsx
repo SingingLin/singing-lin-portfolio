@@ -8,13 +8,16 @@ function EducationRow({ item }: { item: EducationItem }) {
 
   return (
     <li ref={ref} className={`${styles.item} reveal ${visible ? 'is-visible' : ''}`}>
-      <div>
-        <h3 className={styles.school}>{item.school}</h3>
+      <div className={styles.dot} aria-hidden="true" />
+      <div className={styles.card}>
+        <div className={styles.cardHead}>
+          <h3 className={styles.school}>{item.school}</h3>
+          <span className={styles.period}>{item.period}</span>
+        </div>
         {(item.degree || item.department) && (
           <p className={styles.department}>{[item.degree, item.department].filter(Boolean).join(' ・ ')}</p>
         )}
       </div>
-      <span className={styles.period}>{item.period}</span>
     </li>
   )
 }
@@ -28,11 +31,11 @@ function Education() {
           <h2 className="section-title">學歷</h2>
         </Reveal>
 
-        <ul className={styles.list}>
+        <ol className={styles.timeline}>
           {education.map((item) => (
             <EducationRow key={item.school} item={item} />
           ))}
-        </ul>
+        </ol>
       </div>
     </section>
   )

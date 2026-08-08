@@ -5,15 +5,27 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  gap: var(--space-6);
 }
 
 .card {
+  position: relative;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 24px;
+  overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-primary);
 }
 
 .card:hover {
@@ -89,6 +101,27 @@
   gap: 6px;
 }
 
+.dots {
+  display: inline-flex;
+  gap: 3px;
+  margin-left: 2px;
+}
+
+.dotOn,
+.dotOff {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.dotOn {
+  background: #fff;
+}
+
+.dotOff {
+  background: rgba(255, 255, 255, 0.35);
+}
+
 /* 主力技能：字級較大、飽和漸層底色，視覺權重最高 */
 .badgeHighlight {
   padding: 10px 18px;
@@ -97,15 +130,6 @@
   color: #fff;
   font-size: 15px;
   box-shadow: var(--shadow-sm);
-}
-
-.highlightTag {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  background: rgba(255, 255, 255, 0.25);
-  padding: 2px 7px;
-  border-radius: 999px;
 }
 
 /* 次要／誠實揭露的經驗（如 Vue3、Angular6）：字級較小、色彩內斂，與主力技能自然拉開視覺層級 */

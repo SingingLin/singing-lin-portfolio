@@ -12,6 +12,16 @@ const CATEGORY_ICONS: Record<string, ComponentType<{ size?: number; strokeWidth?
   監控系統: Activity,
 }
 
+/**
+ * 熟練度圓點視覺化：僅套用在 highlight（主力）技能，用來取代純文字「主力」標籤。
+ * 依實際年資換算（React 18 有 7 年經驗 → 標 5 格），非誠實資料一律不編造，
+ * 目前資料只有 React 18 是 highlight，其餘皆為誠實揭露的次要經驗（不套用此視覺）。
+ */
+const PROFICIENCY_DOTS: Record<string, number> = {
+  'React 18': 5,
+}
+const DOTS_TOTAL = 5
+
 function Skills() {
   return (
     <section id="skills" className={`section ${styles.skills}`}>
@@ -45,7 +55,20 @@ function Skills() {
                     >
                       <span className={styles.badgeName}>
                         {item.name}
-                        {item.highlight && <span className={styles.highlightTag}>主力</span>}
+                        {item.highlight && (
+                          <span className={styles.dots} aria-hidden="true">
+                            {Array.from({ length: DOTS_TOTAL }, (_, dotIndex) => (
+                              <span
+                                key={dotIndex}
+                                className={
+                                  dotIndex < (PROFICIENCY_DOTS[item.name] ?? DOTS_TOTAL)
+                                    ? styles.dotOn
+                                    : styles.dotOff
+                                }
+                              />
+                            ))}
+                          </span>
+                        )}
                       </span>
                       {item.note && <span className={styles.badgeNote}>{item.note}</span>}
                     </li>

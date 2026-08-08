@@ -1,6 +1,8 @@
+/* 深色 Footer 跟 Hero 首尾呼應：深色開場、深色收尾、中間淺色內容的全站節奏 */
 .footer {
-  border-top: 1px solid var(--color-border);
-  background: var(--color-surface);
+  border-top: none;
+  background: var(--color-ink);
+  color: var(--color-ink-text-muted);
 }
 
 .inner {
@@ -11,7 +13,7 @@
   gap: 12px;
   padding: 24px 0;
   font-size: 13px;
-  color: var(--color-text-soft);
+  color: var(--color-ink-text-muted);
 }
 
 .backTop {
@@ -19,10 +21,10 @@
   align-items: center;
   gap: 5px;
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: var(--color-ink-text);
   transition: color 0.15s ease;
 }
 
 .backTop:hover {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
