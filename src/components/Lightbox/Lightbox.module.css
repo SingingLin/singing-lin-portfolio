@@ -1,0 +1,168 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  background: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 安全區容器：撐滿 overlay（overlay 已 inset:0 鋪滿視窗），padding 只是安全邊距，
+   不再有舊版 width:min(94vw,1200px); height:min(76vh,860px) 那種比視窗小的固定舞台上限——
+   那才是「留白很大、不是滿屏」的設計層級成因。新版沒有任何 vw/vh 的人為上限，圖片的
+   max-width/max-height:100% 直接對齊到幾乎整個視窗。 */
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: clamp(24px, 5vh, 56px) clamp(20px, 6vw, 88px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* 直式手機截圖／橫式桌機截圖都不裁切、不變形 */
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  cursor: default;
+  background: var(--color-surface-alt);
+}
+
+/* 控制元件一律 position: fixed（相對視窗，不是相對 .stage），這樣不管圖片渲染出來多窄多寬，
+   控制元件永遠貼在視窗四角/邊緣，不會跟著窄圖片一起往中間擠，也不會蓋到圖片本身
+   （.stage 的 padding 已經幫圖片跟視窗邊緣留出對應的安全距離，控制元件就落在這圈安全邊距上）。 */
+.close,
+.nav {
+  position: fixed;
+  z-index: calc(var(--z-lightbox) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--control-border);
+  background: var(--control-bg);
+  color: var(--control-fg);
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.close {
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+}
+
+.close:hover {
+  background: var(--control-bg-hover);
+  transform: scale(1.06);
+}
+
+.nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+}
+
+.nav:hover {
+  background: var(--control-bg-hover);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.navPrev {
+  left: 20px;
+}
+
+.navNext {
+  right: 20px;
+}
+
+.counter {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: calc(var(--z-lightbox) + 1);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--control-fg);
+  background: var(--control-bg);
+  border: 1px solid var(--control-border);
+  backdrop-filter: blur(6px);
+  padding: 7px 16px;
+  border-radius: 999px;
+}
+
+/* 平板：641–860px */
+@media (max-width: 860px) {
+  .stage {
+    padding: 40px 40px;
+  }
+
+  .nav {
+    width: 46px;
+    height: 46px;
+  }
+
+  .close {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* 手機：≤640px */
+@media (max-width: 640px) {
+  .stage {
+    padding: 16px 12px;
+  }
+
+  .close {
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav {
+    width: 40px;
+    height: 40px;
+    opacity: 0.85;
+  }
+
+  .navPrev {
+    left: 8px;
+  }
+
+  .navNext {
+    right: 8px;
+  }
+
+  .image {
+    border-radius: var(--radius-sm);
+  }
+
+  .counter {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+}

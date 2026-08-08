@@ -1,0 +1,35 @@
+.otherWorks {
+  scroll-margin-top: 80px;
+}
+
+.note {
+  font-size: 13.5px;
+  color: var(--color-text-soft);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-6);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--color-primary);
+  font-weight: 600;
+  width: fit-content;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.linkPending {
+  font-size: 13px;
+  color: var(--color-text-soft);
+  font-style: italic;
+  width: fit-content;
+}

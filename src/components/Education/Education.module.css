@@ -1,0 +1,46 @@
+.education {
+  scroll-margin-top: 80px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 720px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  padding: 18px 22px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-soft);
+}
+
+.school {
+  font-size: 16px;
+}
+
+.department {
+  margin-top: 4px;
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-soft);
+  white-space: nowrap;
+}

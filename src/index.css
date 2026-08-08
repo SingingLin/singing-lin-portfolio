@@ -1,0 +1,307 @@
+:root {
+  --color-bg: #f8f9fc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f2f8;
+  --color-text: #15171f;
+  --color-text-muted: #545b6a;
+  --color-text-soft: #6b7280;
+  --color-border: #e2e5ee;
+  --color-border-strong: #c9cee0;
+  --color-primary: #4338ca;
+  --color-primary-dark: #34299f;
+  --color-primary-soft: #ecebfa;
+  --color-accent: #0d9488;
+  --color-accent-soft: #e2f6f3;
+
+  /* Lightbox / 控制元件專用深色語境 token（獨立於全站淺色主題：圖片檢視器本來就該用暗背景，
+     跟 Hero/About 等淺色區塊語境不同，這是業界共識） */
+  --color-overlay: rgba(8, 9, 15, 0.97);
+  --control-bg: rgba(255, 255, 255, 0.12);
+  --control-bg-hover: rgba(255, 255, 255, 0.22);
+  --control-fg: #f7f7fa;
+  --control-border: rgba(255, 255, 255, 0.16);
+
+  /* 卡片封面圖遮罩／徽章用色 */
+  --media-badge-bg: rgba(10, 10, 16, 0.62);
+  --media-overlay-grad: linear-gradient(180deg, rgba(10, 10, 16, 0) 55%, rgba(10, 10, 16, 0.42) 100%);
+
+  /* z-index 分層，避免以後疊加元件時互相打架 */
+  --z-header: 100;
+  --z-lightbox: 2000;
+
+  /* 4px 基準間距系統，供新卡片／Lightbox 元件的內距、間隙對齊同一套節奏 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+
+  --max-width: 1120px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 1px 2px rgba(21, 23, 31, 0.06);
+  --shadow-md: 0 10px 28px rgba(21, 23, 31, 0.09);
+  --shadow-lg: 0 24px 56px rgba(21, 23, 31, 0.18);
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei',
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 96px 0;
+}
+
+.section:nth-of-type(even) {
+  background: var(--color-surface);
+}
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.section-title {
+  font-size: clamp(26px, 3.6vw, 34px);
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 860px) {
+  .section {
+    padding: 72px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 56px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .section-heading {
+    margin-bottom: 32px;
+  }
+}
+
+/* 捲動進場動畫：元素進入視窗時 fade-in + slide-up */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* WorkCard：Projects／OtherWorks 共用的卡片視覺語言。
+   封面圖（.work-card__media）與文字資訊（.work-card__body）物理上完全分離的兩個區塊，
+   圖片一律用 overflow:hidden 的固定比例容器裁切，不可能疊在文字上或溢出卡片外。 */
+/* ------------------------------------------------------------------ */
+.work-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-soft);
+}
+
+.work-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-surface-alt);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.work-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center; /* 網頁截圖通常上方（nav/hero）資訊密度最高，優先保留 */
+  transition: transform 0.35s ease;
+}
+
+.work-card:hover .work-card__media img {
+  transform: scale(1.045);
+}
+
+.work-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--media-overlay-grad);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: var(--space-4);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.work-card:hover .work-card__overlay {
+  opacity: 1;
+}
+
+.work-card__badge {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  background: var(--media-badge-bg);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.work-card__body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.work-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .work-card__media {
+    aspect-ratio: 16 / 11; /* 手機螢幕略窄，圖片區塊略增高比例，畫面感較飽滿 */
+  }
+
+  .work-card__body {
+    padding: var(--space-4);
+  }
+
+  .work-card__overlay {
+    display: none; /* 手機沒有 hover 概念，這層提示沒有意義 */
+  }
+}
