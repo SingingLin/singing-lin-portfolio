@@ -1,6 +1,6 @@
 import { experiences, type ExperienceItem } from '../../data/resumeData'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
-import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './Experience.module.css'
 
 function TimelineItem({ item, isLatest }: { item: ExperienceItem; isLatest: boolean }) {
@@ -34,10 +34,7 @@ function Experience() {
   return (
     <section id="experience" className={`section ${styles.experience}`}>
       <div className="container">
-        <Reveal className="section-heading">
-          <span className="section-kicker">Experience</span>
-          <h2 className="section-title">工作經歷</h2>
-        </Reveal>
+        <SectionHeading index="03" kicker="Experience" title="工作經歷" />
 
         <ol className={styles.timeline}>
           {experiences.map((item, index) => (

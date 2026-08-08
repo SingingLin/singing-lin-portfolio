@@ -1,15 +1,13 @@
 import { profile } from '../../data/resumeData'
 import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './About.module.css'
 
 function About() {
   return (
     <section id="about" className={`section ${styles.about}`}>
       <div className="container">
-        <Reveal className="section-heading">
-          <span className="section-kicker">About</span>
-          <h2 className="section-title">關於我</h2>
-        </Reveal>
+        <SectionHeading index="01" kicker="About" title="關於我" />
 
         <Reveal delay={80} className={styles.content}>
           <p>{profile.summary}</p>

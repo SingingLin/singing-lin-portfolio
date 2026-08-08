@@ -1,6 +1,7 @@
 import { Mail, MapPin } from 'lucide-react'
 import { profile } from '../../data/resumeData'
 import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './Contact.module.css'
 
 function Contact() {
@@ -8,10 +9,7 @@ function Contact() {
     <section id="contact" className={`section ${styles.contact}`}>
       <div className="container">
         <Reveal className={styles.panel}>
-          <div className="section-heading">
-            <span className="section-kicker">Contact</span>
-            <h2 className="section-title">聯絡我</h2>
-          </div>
+          <SectionHeading index="07" kicker="Contact" title="聯絡我" onDark reveal={false} />
 
           <p className={styles.desc}>
             對合作機會或交流有興趣，歡迎透過以下方式聯絡我。

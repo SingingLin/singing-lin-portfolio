@@ -2,6 +2,8 @@
   scroll-margin-top: 80px;
 }
 
+/* 調整：拿掉漸層底，改深色語境（呼應 Hero/Footer「深色開場—淺色內容—深色收尾」三段式節奏），
+   全站漸層只保留 Header logo 一處。kicker/title 顏色改由 SectionHeading 的 on-dark 樣式接手。 */
 .panel {
   display: flex;
   flex-direction: column;
@@ -10,20 +12,17 @@
   gap: 18px;
   padding: 56px 32px;
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  color: #fff;
+  background: var(--color-ink);
+  color: var(--color-ink-text);
 }
 
-.panel :global(.section-kicker) {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.panel :global(.section-title) {
-  color: #fff;
+.panel :global(.section-heading) {
+  justify-content: center;
+  margin-bottom: 0;
 }
 
 .desc {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-ink-text-muted);
   font-size: 15px;
 }
 
@@ -33,6 +32,7 @@
   justify-content: center;
   gap: 24px;
   font-size: 15px;
+  color: var(--color-ink-text-muted);
 }
 
 .infoItem {
@@ -42,6 +42,7 @@
 }
 
 .icon {
+  color: var(--color-accent);
   flex-shrink: 0;
 }
 
@@ -49,17 +50,18 @@
   margin-top: 6px;
   padding: 11px 28px;
   border-radius: 999px;
-  background: #fff;
-  /* 底色漸層右側偏琥珀，深靛紫文字在琥珀底上對比會下降，改用更深的 --color-ink 確保對比達標 */
+  /* 全站唯一的行動呼籲色，沿用 Hero 主要按鈕的琥珀配色邏輯 */
+  background: var(--color-accent);
   color: var(--color-ink);
   font-weight: 700;
   font-size: 14.5px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .ctaBtn:hover {
+  background: var(--color-accent-dark);
   transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 640px) {

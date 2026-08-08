@@ -80,6 +80,14 @@
   --text-small: 14px;
   --text-xs: 12.5px;
 
+  /* reference-driven redesign v3.0：Hero 姓名專用大字級，讓文字本身撐起視覺重量 */
+  --text-hero: clamp(48px, 7.5vw, 92px);
+
+  /* 編號系統專用：延伸 Header nav 的 01/02/03 語言到每個 section-heading */
+  --text-index: clamp(40px, 5vw, 64px);
+  --color-index: var(--color-border-strong); /* 淺色語境下的大數字用低對比灰，不搶內容 */
+  --color-index-ink: rgba(245, 245, 250, 0.16); /* 深色語境（Hero/Footer/Contact）下的大數字 */
+
   color-scheme: light;
 }
 
@@ -163,11 +171,32 @@ button:focus-visible {
   background: var(--color-surface);
 }
 
+/* Section 編號系統：延伸 Header 既有的 01/02/03 nav 語言，套進每個 section 標題區
+   （reference-driven redesign v3.0，呼應參考案例「留白與字級層級做視覺重量」的判斷）。 */
 .section-heading {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: baseline;
+  gap: var(--space-5);
   margin-bottom: 48px;
+}
+
+.section-index {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--text-index);
+  color: var(--color-index);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.section-heading.on-dark .section-index {
+  color: var(--color-index-ink);
+}
+
+.section-heading-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .section-kicker {
@@ -179,11 +208,19 @@ button:focus-visible {
   color: var(--color-primary);
 }
 
+.section-heading.on-dark .section-kicker {
+  color: var(--color-accent);
+}
+
 .section-title {
   font-family: var(--font-display);
   font-size: var(--text-h2);
   font-weight: 600;
   letter-spacing: -0.01em;
+}
+
+.section-heading.on-dark .section-title {
+  color: var(--color-ink-text);
 }
 
 @media (max-width: 860px) {
@@ -202,7 +239,14 @@ button:focus-visible {
   }
 
   .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
     margin-bottom: 32px;
+  }
+
+  .section-index {
+    font-size: 32px;
   }
 }
 

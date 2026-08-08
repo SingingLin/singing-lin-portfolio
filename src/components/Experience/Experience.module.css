@@ -2,15 +2,14 @@
   scroll-margin-top: 80px;
 }
 
+/* 調整：時間線拿掉漸層邊框，改純色 hairline，全站漸層只保留 Header logo 一處 */
 .timeline {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 32px;
   padding-left: 28px;
-  border-left: 2px solid var(--color-border);
-  /* 漸層時間線：越往下（越舊資歷）越淡，暗示新舊權重差異 */
-  border-image: linear-gradient(180deg, var(--color-primary), var(--color-accent-soft)) 1;
+  border-left: 2px solid var(--color-border-strong);
 }
 
 .item {

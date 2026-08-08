@@ -2,7 +2,7 @@ import { ExternalLink } from 'lucide-react'
 import { otherWorks, type OtherWork } from '../../data/resumeData'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 import Gallery from '../Gallery/Gallery'
-import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './OtherWorks.module.css'
 
 function OtherWorkCard({ work }: { work: OtherWork }) {
@@ -32,11 +32,12 @@ function OtherWorks() {
   return (
     <section id="other-works" className={`section ${styles.otherWorks}`}>
       <div className="container">
-        <Reveal className="section-heading">
-          <span className="section-kicker">Other Works</span>
-          <h2 className="section-title">其餘作品</h2>
-          <p className={styles.note}>以下為外包／接案作品，部分附有實際截圖與官方連結。</p>
-        </Reveal>
+        <SectionHeading
+          index="05"
+          kicker="Other Works"
+          title="其餘作品"
+          note={<p className={styles.note}>以下為外包／接案作品，部分附有實際截圖與官方連結。</p>}
+        />
 
         <ul className={styles.grid}>
           {otherWorks.map((work) => (

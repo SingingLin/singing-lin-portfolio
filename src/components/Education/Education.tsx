@@ -1,6 +1,6 @@
 import { education, type EducationItem } from '../../data/resumeData'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
-import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './Education.module.css'
 
 function EducationRow({ item }: { item: EducationItem }) {
@@ -26,10 +26,7 @@ function Education() {
   return (
     <section id="education" className={`section ${styles.education}`}>
       <div className="container">
-        <Reveal className="section-heading">
-          <span className="section-kicker">Education</span>
-          <h2 className="section-title">學歷</h2>
-        </Reveal>
+        <SectionHeading index="06" kicker="Education" title="學歷" />
 
         <ol className={styles.timeline}>
           {education.map((item) => (

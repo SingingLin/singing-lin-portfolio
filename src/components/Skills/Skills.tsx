@@ -2,6 +2,7 @@ import { Activity, Code2, GitBranch, Layers, Package } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { skillCategories } from '../../data/resumeData'
 import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './Skills.module.css'
 
 const CATEGORY_ICONS: Record<string, ComponentType<{ size?: number; strokeWidth?: number }>> = {
@@ -26,10 +27,7 @@ function Skills() {
   return (
     <section id="skills" className={`section ${styles.skills}`}>
       <div className="container">
-        <Reveal className="section-heading">
-          <span className="section-kicker">Skills</span>
-          <h2 className="section-title">技能</h2>
-        </Reveal>
+        <SectionHeading index="02" kicker="Skills" title="技能" />
 
         <div className={styles.grid}>
           {skillCategories.map((group, groupIndex) => {

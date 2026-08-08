@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { projectGroups, type ProjectItem } from '../../data/resumeData'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 import Gallery from '../Gallery/Gallery'
-import Reveal from '../Reveal/Reveal'
+import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './Projects.module.css'
 
 function ProjectCard({ project, defaultOpen }: { project: ProjectItem; defaultOpen: boolean }) {
@@ -50,10 +50,7 @@ function Projects() {
   return (
     <section id="projects" className={`section ${styles.projects}`}>
       <div className="container">
-        <Reveal className="section-heading">
-          <span className="section-kicker">Projects</span>
-          <h2 className="section-title">專案作品</h2>
-        </Reveal>
+        <SectionHeading index="04" kicker="Projects" title="專案作品" />
 
         <div className={styles.tabs} role="tablist" aria-label="依公司分組的專案作品">
           {projectGroups.map((group, index) => (
