@@ -1,6 +1,7 @@
 import { Mail, MapPin } from 'lucide-react'
 import { profile } from '../../data/resumeData'
 import { useTypewriter } from '../../hooks/useTypewriter'
+import { withBase } from '../../utils/url'
 import styles from './Hero.module.css'
 
 /** lucide-react 不含品牌 Logo，GitHub 標誌維持官方線稿 SVG，其餘一般 UI 圖示統一用 lucide-react。 */
@@ -28,7 +29,7 @@ function Hero() {
     <section id="top" className={styles.hero}>
       <div className={`container ${styles.inner}`}>
         <img
-          src={profile.avatar}
+          src={withBase(profile.avatar)}
           alt={`${profile.name} ${profile.nameEn}`}
           className={styles.avatar}
           width={128}

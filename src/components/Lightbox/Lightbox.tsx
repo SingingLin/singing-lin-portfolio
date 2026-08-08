@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { withBase } from '../../utils/url'
 import styles from './Lightbox.module.css'
 
 interface LightboxProps {
@@ -59,7 +60,7 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-label={alt}>
       <div className={styles.stage}>
         <img
-          src={images[index]}
+          src={withBase(images[index])}
           alt={`${alt} 截圖 ${index + 1}`}
           className={styles.image}
           onClick={(event) => event.stopPropagation()}

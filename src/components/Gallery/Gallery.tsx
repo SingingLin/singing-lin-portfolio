@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { withBase } from '../../utils/url'
 import Lightbox from '../Lightbox/Lightbox'
 
 interface GalleryProps {
@@ -25,7 +26,7 @@ function Gallery({ images, alt }: GalleryProps) {
         onClick={() => setIndex(0)}
         aria-label={`放大檢視 ${alt} 截圖`}
       >
-        <img src={images[0]} alt={`${alt} 截圖 1`} loading="lazy" />
+        <img src={withBase(images[0])} alt={`${alt} 截圖 1`} loading="lazy" />
         <span className="work-card__overlay" aria-hidden="true">
           🔍 放大檢視
         </span>
