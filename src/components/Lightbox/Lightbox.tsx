@@ -57,6 +57,26 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
     }
   }, [])
 
+  // 效能優化：切換左右箭頭時要立即顯示新圖，不能等瀏覽器現場下載/解碼。
+  // 在目前圖片顯示的同時，於背景用隱藏的 Image 物件預先請求「上一張／下一張」，
+  // 讓瀏覽器把它們放進 HTTP cache（GitHub Pages 這種純靜態環境沒有額外加速，預載
+  // 才能讓使用者按左右鍵時圖片已經在快取裡，不必再等一次網路下載）。
+  useEffect(() => {
+    if (images.length <= 1) return
+    const prevSrc = images[(index - 1 + images.length) % images.length]
+    const nextSrc = images[(index + 1) % images.length]
+    const preloads = [prevSrc, nextSrc].map((src) => {
+      const img = new Image()
+      img.src = src
+      return img
+    })
+    return () => {
+      preloads.forEach((img) => {
+        img.src = ''
+      })
+    }
+  }, [images, index])
+
   return createPortal(
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-label={alt}>
       <div className={styles.stage}>
