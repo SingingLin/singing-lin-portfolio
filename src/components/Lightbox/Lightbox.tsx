@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import { useCallback, useEffect } from 'react'
+import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useT } from '../../i18n/useLanguage'
 import styles from './Lightbox.module.css'
@@ -11,6 +11,9 @@ interface LightboxProps {
   onClose: () => void
   onNavigate: (index: number) => void
 }
+
+/** 自動輪播間隔：每 2 秒切換下一張（客戶指定值）。 */
+const AUTOPLAY_INTERVAL_MS = 2000
 
 /**
  * 點擊封面圖後跳出的全螢幕放大檢視 modal，支援鍵盤左右鍵切換與 Esc 關閉。
@@ -29,6 +32,7 @@ interface LightboxProps {
  */
 function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
   const t = useT()
+  const [isPlaying, setIsPlaying] = useState(true)
   const goPrev = useCallback(
     () => onNavigate((index - 1 + images.length) % images.length),
     [index, images.length, onNavigate],
@@ -48,6 +52,25 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [goPrev, goNext, onClose])
+
+  // 自動輪播：每 2 秒切到下一張，到最後一張後循環回第一張。
+  //
+  // 用 setTimeout（而非 setInterval）並把 `index` 放進依賴陣列，是刻意設計：不論
+  // index 的變化是來自這個 timer 自己觸發的 goNext，還是使用者手動點箭頭／按方向鍵
+  // 造成的 onNavigate，effect 都會重新執行——先清掉舊的 timer（見 cleanup），再從
+  //「現在這張」重新排一個全新的 2 秒倒數。這正好符合「手動切換要重置計時器、從該張
+  // 重新倒數」的需求，不用另外寫一套「偵測到手動操作就重置」的邏輯。
+  //
+  // isPlaying 控制暫停/播放：false 時直接不排 timer；重新播放時同樣會從當下這張重新
+  // 倒數 2 秒，而不是從上次剩餘的時間繼續（符合「重新從該張開始倒數」的直覺）。
+  //
+  // Lightbox 關閉時（呼叫端把 index 設回 null 而 unmount 這個元件），React 會自動跑
+  // 這個 effect 最後一次的 cleanup，timer 一定會被清掉，不會有背景殘留計時器。
+  useEffect(() => {
+    if (!isPlaying || images.length <= 1) return undefined
+    const timer = window.setTimeout(goNext, AUTOPLAY_INTERVAL_MS)
+    return () => window.clearTimeout(timer)
+  }, [index, isPlaying, images.length, goNext])
 
   useEffect(() => {
     const { overflow } = document.body.style
@@ -118,8 +141,20 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
             <ChevronRight size={26} strokeWidth={2.25} />
           </button>
 
-          <div className={styles.counter} onClick={(event) => event.stopPropagation()}>
-            {index + 1} / {images.length}
+          <div className={styles.bottomBar} onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className={styles.playToggle}
+              onClick={() => setIsPlaying((playing) => !playing)}
+              aria-label={isPlaying ? t.lightbox.pause : t.lightbox.play}
+              aria-pressed={isPlaying}
+            >
+              {isPlaying ? <Pause size={15} strokeWidth={2.25} /> : <Play size={15} strokeWidth={2.25} />}
+            </button>
+
+            <div className={styles.counter}>
+              {index + 1} / {images.length}
+            </div>
           </div>
         </>
       )}

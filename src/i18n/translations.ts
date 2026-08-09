@@ -34,6 +34,8 @@ export interface Translations {
     close: string
     prev: string
     next: string
+    play: string
+    pause: string
   }
   footer: {
     githubLabel: string
@@ -70,6 +72,8 @@ export const translations: Record<Lang, Translations> = {
       close: '關閉放大檢視',
       prev: '上一張',
       next: '下一張',
+      play: '開始自動播放',
+      pause: '暫停自動播放',
     },
     footer: {
       githubLabel: 'GitHub',
@@ -104,6 +108,8 @@ export const translations: Record<Lang, Translations> = {
       close: 'Close preview',
       prev: 'Previous',
       next: 'Next',
+      play: 'Start autoplay',
+      pause: 'Pause autoplay',
     },
     footer: {
       githubLabel: 'GitHub',
