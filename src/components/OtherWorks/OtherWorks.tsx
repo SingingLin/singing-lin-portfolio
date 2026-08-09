@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { OtherWork } from '../../data/resumeData.types'
 import { useResumeData } from '../../data/useResumeData'
-import { useT } from '../../i18n/useLanguage'
+import { useLanguage, useT } from '../../i18n/useLanguage'
 import { getProjectImages } from '../../utils/projectImages'
 import Lightbox from '../Lightbox/Lightbox'
 import Reveal from '../Reveal/Reveal'
@@ -94,6 +94,7 @@ function FreelanceTile({ work }: { work: OtherWork }) {
 function OtherWorks() {
   const { otherWorks } = useResumeData()
   const t = useT()
+  const { lang } = useLanguage()
 
   return (
     <section id="freelance" className="section alt">
@@ -102,7 +103,7 @@ function OtherWorks() {
           <h2 className="title">
             Freelance<span className="dot">.</span>
           </h2>
-          <p className="title-zh">{t.section.freelance.caption}</p>
+          {lang === 'zh' && <p className="title-zh">{t.section.freelance.caption}</p>}
         </Reveal>
 
         <div className={styles.freelanceGrid}>

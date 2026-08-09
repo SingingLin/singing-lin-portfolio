@@ -74,7 +74,7 @@ export const skillCategories: SkillCategory[] = [
     note: 'React is the primary framework; Vue 3 and Angular 6 were used on specific projects but are not primary skills — proficiency differences are noted honestly.',
     items: [
       { name: 'React 18', highlight: true, note: 'Primary skill · 7 years experience' },
-      { name: 'Vue 3', note: '~3 months of project experience (Foxconn Technology, 2023)' },
+      { name: 'Vue 3', note: '~3 months of project experience (Ingrasys Technology, 2023)' },
       { name: 'Angular 6', note: 'Earlier-career experience, used less in recent years (HiTrust InfoTech, 2017–2020)' },
     ],
   },
@@ -109,7 +109,7 @@ export const experiences: ExperienceItem[] = [
     ],
   },
   {
-    company: 'Foxconn Technology Co., Ltd.',
+    company: 'Ingrasys Technology Inc.',
     role: 'Frontend Engineer',
     period: 'Apr 2023 - Jul 2023',
     bullets: [
@@ -130,7 +130,7 @@ export const experiences: ExperienceItem[] = [
     ],
   },
   {
-    company: 'HiTrust InfoTech Inc.',
+    company: 'HiTrust Inc.',
     role: 'Frontend Engineer',
     period: 'Jun 2017 - Feb 2020',
     bullets: [
@@ -157,7 +157,7 @@ export const projectGroups: ProjectGroup[] = [
         period: '2024/02 - 2025/03',
         bullets: [
           'Feature development and debugging; refactored the dividend-record feature; built the annual statement feature; integrated biometric authentication.',
-          'Built a suite of shared components (Tabs/Pagination/Button/Card/PopupBox/Modal/TitleSection/NoticeList/SvgIcon/Dropdown/DateRangePicker/SwitchButton).',
+          'Built a suite of shared components (Tabs/ Pagination/ Button/ Card/ PopupBox/ Modal/ TitleSection/ NoticeList/ SvgIcon/ Dropdown/ DateRangePicker/ SwitchButton).',
           'Established code formatting and lint rules; adjusted the Tailwind config to match the UI guideline.',
           'Fixed font-rendering and duplicate-API-call issues; explored adopting TypeScript.',
         ],
@@ -177,7 +177,7 @@ export const projectGroups: ProjectGroup[] = [
     ],
   },
   {
-    company: 'Foxconn Technology',
+    company: 'Ingrasys Technology',
     projects: [
       {
         title: 'Tablet Meeting-Room System',
@@ -303,13 +303,13 @@ export const otherWorks: OtherWork[] = [
     imagesDir: 'soho/lhdc-one',
   },
   {
-    title: 'Capital Machinery',
+    title: 'Capital Machinery Limited',
     linkLabel: 'Capital Machinery',
     href: 'https://www.capitalmachinery.com.tw/',
     imagesDir: 'soho/capitalmachinery',
   },
   {
-    title: 'Chunghwa Mercedes-Benz',
+    title: 'Capital Motors',
     linkLabel: 'Benz',
     href: 'https://www.cmi.mercedes-benz.com.tw/index',
     imagesDir: 'soho/mercedesbenz',

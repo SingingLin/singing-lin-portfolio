@@ -1,7 +1,7 @@
 import { useState, type SyntheticEvent } from 'react'
 import type { ProjectItem } from '../../data/resumeData.types'
 import { useResumeData } from '../../data/useResumeData'
-import { useT } from '../../i18n/useLanguage'
+import { useLanguage, useT } from '../../i18n/useLanguage'
 import { getProjectImages } from '../../utils/projectImages'
 import Lightbox from '../Lightbox/Lightbox'
 import Reveal from '../Reveal/Reveal'
@@ -76,6 +76,7 @@ function ProjectRow({ project }: { project: ProjectItem }) {
 function Projects() {
   const { projectGroups } = useResumeData()
   const t = useT()
+  const { lang } = useLanguage()
 
   return (
     <section id="projects" className="section">
@@ -84,7 +85,7 @@ function Projects() {
           <h2 className="title">
             Projects<span className="dot">.</span>
           </h2>
-          <p className="title-zh">{t.section.projects.caption}</p>
+          {lang === 'zh' && <p className="title-zh">{t.section.projects.caption}</p>}
         </Reveal>
 
         {projectGroups.map((group, groupIndex) => (

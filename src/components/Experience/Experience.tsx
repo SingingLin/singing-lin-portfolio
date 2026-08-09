@@ -1,11 +1,12 @@
 import { useResumeData } from '../../data/useResumeData'
-import { useT } from '../../i18n/useLanguage'
+import { useLanguage, useT } from '../../i18n/useLanguage'
 import Reveal from '../Reveal/Reveal'
 import styles from './Experience.module.css'
 
 function Experience() {
   const { education, experiences, topSkills } = useResumeData()
   const t = useT()
+  const { lang } = useLanguage()
 
   return (
     <section id="experience" className="section alt">
@@ -14,7 +15,7 @@ function Experience() {
           <h2 className="title">
             Experience<span className="dot">.</span>
           </h2>
-          <p className="title-zh">{t.section.experience.caption}</p>
+          {lang === 'zh' && <p className="title-zh">{t.section.experience.caption}</p>}
         </Reveal>
 
         <Reveal delay={80} className={styles.expTopGrid}>

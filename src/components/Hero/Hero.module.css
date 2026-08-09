@@ -229,6 +229,7 @@
 @media (max-width: 700px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: var(--space-5);
   }
 
   /* 手機版：文字在上、大頭照在下（跟桌機左右並排順序不同，靠 order 明確固定） */
