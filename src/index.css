@@ -1,92 +1,55 @@
+/* v10 定案視覺系統：純白背景、無襯線 Inter、藍/亮藍/霧綠/黃配色。
+   取代舊版松綠/暖金系統，全站 CSS variables 統一由此檔輸出。 */
 :root {
-  --color-bg: #f8f9fc;
-  --color-surface: #ffffff;
-  --color-surface-alt: #f0f2f8;
-  --color-text: #15171f;
-  --color-text-muted: #545b6a;
-  --color-text-soft: #6b7280;
-  --color-border: #e2e5ee;
-  --color-border-strong: #c9cee0;
-  --color-primary: #4338ca;
-  --color-primary-dark: #34299f;
-  --color-primary-soft: #ecebfa;
-  /* accent：原青綠 #0d9488 → 琥珀 #f59e0b（全站重新設計 v2.0）。
-     刻意稀少使用：CTA / 進度條 / 少量強調徽章，不做大面積裝飾底色。 */
-  --color-accent: #f59e0b;
-  --color-accent-dark: #b45309;
-  --color-accent-soft: #fef3e2;
+  --paper: #ffffff;
+  --paper-alt: #f6f7f9;
+  --paper-deep: #eef0f3;
 
-  /* Hero／Footer 專用墨色深色語境，跟 Lightbox 的 --color-overlay 同一套「深色語境獨立於
-     淺色主題」設計邏輯，用途分離、互不取代。 */
-  --color-ink: #0b0b1f;
-  --color-ink-soft: #1c1b33;
-  --color-ink-border: rgba(255, 255, 255, 0.14);
-  --color-ink-text: #f5f5fa;
-  --color-ink-text-muted: rgba(245, 245, 250, 0.72);
+  --ink: #14181f;
+  --ink-soft: #4b5563;
+  --ink-faint: #94a0ac;
 
-  /* Lightbox / 控制元件專用深色語境 token（獨立於全站淺色主題：圖片檢視器本來就該用暗背景，
-     跟 Hero/About 等淺色區塊語境不同，這是業界共識） */
+  --line: #e6e8ec;
+  --line-strong: #c7ccd4;
+
+  --blue-deep: #2364aa;
+  --blue-bright: #3da5d9;
+  --mist: #6fa89d;
+  --yellow: #fec601;
+
+  --mist-soft: #eaf2f0;
+  --yellow-soft: #fff6da;
+
+  --navy-deep: #142d47;
+  --sky-mist: #eef3f2;
+
+  --font-sans: 'Inter', -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --max-width: 1080px;
+  --z-header: 40;
+  --z-lightbox: 2000;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --shadow-md: 0 10px 28px rgba(20, 24, 31, 0.09);
+  --shadow-lg: 0 24px 56px rgba(20, 24, 31, 0.18);
+
+  /* Lightbox 專用深色語境 token（獨立於全站淺色主題：圖片檢視器本來就該用暗背景） */
   --color-overlay: rgba(8, 9, 15, 0.97);
   --control-bg: rgba(255, 255, 255, 0.12);
   --control-bg-hover: rgba(255, 255, 255, 0.22);
   --control-fg: #f7f7fa;
   --control-border: rgba(255, 255, 255, 0.16);
-
-  /* 卡片封面圖遮罩／徽章用色 */
-  --media-badge-bg: rgba(10, 10, 16, 0.62);
-  --media-overlay-grad: linear-gradient(180deg, rgba(10, 10, 16, 0) 55%, rgba(10, 10, 16, 0.42) 100%);
-
-  /* z-index 分層，避免以後疊加元件時互相打架 */
-  --z-header: 100;
-  --z-lightbox: 2000;
-
-  /* 4px 基準間距系統，供新卡片／Lightbox 元件的內距、間隙對齊同一套節奏 */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 48px;
-  --space-10: 64px;
-  --space-11: 80px;
-  --space-12: 96px;
-  --space-13: 128px;
-
-  --max-width: 1120px;
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --shadow-sm: 0 1px 2px rgba(21, 23, 31, 0.06);
-  --shadow-md: 0 10px 28px rgba(21, 23, 31, 0.09);
-  --shadow-lg: 0 24px 56px rgba(21, 23, 31, 0.18);
-
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei',
-    Roboto, Helvetica, Arial, sans-serif;
-  /* 標題階層專用 Display 字體，本文／按鈕維持 --font-sans 不變 */
-  --font-display: 'Space Grotesk', var(--font-sans);
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-
-  /* 字級階層（新增，取代各元件分散的 clamp() 硬寫值） */
-  --text-display: clamp(40px, 6vw, 72px);
-  --text-h1: clamp(32px, 4.2vw, 44px);
-  --text-h2: clamp(28px, 3.6vw, 38px);
-  --text-h3: clamp(19px, 2.2vw, 22px);
-  --text-body-lg: 17px;
-  --text-body: 16px;
-  --text-small: 14px;
-  --text-xs: 12.5px;
-
-  /* reference-driven redesign v3.0：Hero 姓名專用大字級，讓文字本身撐起視覺重量 */
-  --text-hero: clamp(48px, 7.5vw, 92px);
-
-  /* 編號系統專用：延伸 Header nav 的 01/02/03 語言到每個 section-heading */
-  --text-index: clamp(40px, 5vw, 64px);
-  --color-index: var(--color-border-strong); /* 淺色語境下的大數字用低對比灰，不搶內容 */
-  --color-index-ink: rgba(245, 245, 250, 0.16); /* 深色語境（Hero/Footer/Contact）下的大數字 */
 
   color-scheme: light;
 }
@@ -101,9 +64,9 @@ html {
 
 body {
   margin: 0;
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -114,9 +77,9 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--ink);
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
@@ -147,7 +110,7 @@ img {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--blue-deep);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -160,97 +123,62 @@ button:focus-visible {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 28px;
 }
 
 .section {
-  padding: 112px 0;
+  padding: var(--space-9) 0;
+  position: relative;
 }
 
-.section:nth-of-type(even) {
-  background: var(--color-surface);
+.section.alt {
+  background: var(--paper-alt);
 }
 
-/* Section 編號系統：延伸 Header 既有的 01/02/03 nav 語言，套進每個 section 標題區
-   （reference-driven redesign v3.0，呼應參考案例「留白與字級層級做視覺重量」的判斷）。 */
-.section-heading {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-5);
-  margin-bottom: 48px;
+/* ---- 標題系統（全域共用 class，各 section 元件以字面字串套用，不走 CSS Modules） ---- */
+.section-head {
+  margin-bottom: var(--space-7);
 }
 
-.section-index {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: var(--text-index);
-  color: var(--color-index);
-  line-height: 1;
-  flex-shrink: 0;
+.title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 40px);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
-.section-heading.on-dark .section-index {
-  color: var(--color-index-ink);
+.title .dot {
+  color: var(--blue-deep);
 }
 
-.section-heading-text {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.title-zh {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin: 4px 0 0;
 }
 
-.section-kicker {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-}
-
-.section-heading.on-dark .section-kicker {
-  color: var(--color-accent);
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: var(--text-h2);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.section-heading.on-dark .section-title {
-  color: var(--color-ink-text);
-}
-
-@media (max-width: 860px) {
-  .section {
-    padding: 80px 0;
-  }
+.section-note {
+  font-size: 14px;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  margin: var(--space-4) 0 0;
 }
 
 @media (max-width: 640px) {
   .section {
-    padding: 56px 0;
+    padding: var(--space-8) 0;
   }
 
   .container {
     padding: 0 20px;
   }
-
-  .section-heading {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-    margin-bottom: 32px;
-  }
-
-  .section-index {
-    font-size: 32px;
-  }
 }
 
-/* 捲動進場動畫：元素進入視窗時 fade-in + slide-up */
+/* 捲動進場動畫：元素進入視窗時 fade-in + slide-up（沿用既有機制，供 Reveal/useScrollReveal 使用） */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -267,115 +195,5 @@ button:focus-visible {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/* WorkCard：Projects／OtherWorks 共用的卡片視覺語言。
-   封面圖（.work-card__media）與文字資訊（.work-card__body）物理上完全分離的兩個區塊，
-   圖片一律用 overflow:hidden 的固定比例容器裁切，不可能疊在文字上或溢出卡片外。 */
-/* ------------------------------------------------------------------ */
-.work-card {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.work-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary-soft);
-}
-
-.work-card__media {
-  position: relative;
-  display: block;
-  aspect-ratio: 16 / 10;
-  width: 100%;
-  overflow: hidden;
-  background: var(--color-surface-alt);
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  font: inherit;
-  color: inherit;
-}
-
-.work-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center; /* 網頁截圖通常上方（nav/hero）資訊密度最高，優先保留 */
-  transition: transform 0.35s ease;
-}
-
-.work-card:hover .work-card__media img {
-  transform: scale(1.045);
-}
-
-.work-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--media-overlay-grad);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: var(--space-4);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  pointer-events: none;
-}
-
-.work-card:hover .work-card__overlay {
-  opacity: 1;
-}
-
-.work-card__badge {
-  position: absolute;
-  right: var(--space-3);
-  bottom: var(--space-3);
-  background: var(--media-badge-bg);
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 999px;
-  backdrop-filter: blur(4px);
-}
-
-.work-card__body {
-  padding: var(--space-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.work-card__title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.5;
-}
-
-@media (max-width: 640px) {
-  .work-card__media {
-    aspect-ratio: 16 / 11; /* 手機螢幕略窄，圖片區塊略增高比例，畫面感較飽滿 */
-  }
-
-  .work-card__body {
-    padding: var(--space-4);
-  }
-
-  .work-card__overlay {
-    display: none; /* 手機沒有 hover 概念，這層提示沒有意義 */
   }
 }

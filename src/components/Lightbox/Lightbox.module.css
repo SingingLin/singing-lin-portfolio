@@ -42,7 +42,7 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   cursor: default;
-  background: var(--color-surface-alt);
+  background: var(--paper-alt);
 }
 
 /* 控制元件一律 position: fixed（相對視窗，不是相對 .stage），這樣不管圖片渲染出來多窄多寬，

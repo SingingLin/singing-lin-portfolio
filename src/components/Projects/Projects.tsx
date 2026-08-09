@@ -1,77 +1,86 @@
-import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { projectGroups, type ProjectItem } from '../../data/resumeData'
-import { useScrollReveal } from '../../hooks/useScrollReveal'
-import Gallery from '../Gallery/Gallery'
-import SectionHeading from '../SectionHeading/SectionHeading'
+import { withBase } from '../../utils/url'
+import Lightbox from '../Lightbox/Lightbox'
+import Reveal from '../Reveal/Reveal'
 import styles from './Projects.module.css'
 
-function ProjectCard({ project, defaultOpen }: { project: ProjectItem; defaultOpen: boolean }) {
-  const [open, setOpen] = useState(defaultOpen)
-  const { ref, visible } = useScrollReveal<HTMLLIElement>()
+/** 專案縮圖：有截圖才渲染，點擊開 Lightbox（沿用既有 createPortal 機制）。 */
+function ProjectThumb({ project }: { project: ProjectItem }) {
+  const [index, setIndex] = useState<number | null>(null)
+  const images = project.images ?? []
+
+  if (images.length === 0) {
+    return null
+  }
 
   return (
-    <li ref={ref} className={`work-card reveal ${visible ? 'is-visible' : ''}`}>
-      {project.images && project.images.length > 0 && <Gallery images={project.images} alt={project.title} />}
-
+    <>
       <button
         type="button"
-        className={styles.cardHeader}
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
+        className={styles.projectThumb}
+        onClick={() => setIndex(0)}
+        aria-label={`放大檢視 ${project.title} 截圖`}
       >
-        <div className={styles.cardHeaderText}>
-          <h4 className={styles.cardTitle}>{project.title}</h4>
-          <div className={styles.cardMeta}>
-            <span className={styles.techTag}>{project.tech}</span>
-            {project.period && <span className={styles.period}>{project.period}</span>}
-          </div>
-        </div>
-        <span className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`} aria-hidden="true">
-          <ChevronDown size={22} strokeWidth={2.25} />
-        </span>
+        <img src={withBase(images[0])} alt="" loading="lazy" />
       </button>
 
-      {open && (
-        <ul className={styles.bullets}>
+      {index !== null && (
+        <Lightbox images={images} alt={project.title} index={index} onClose={() => setIndex(null)} onNavigate={setIndex} />
+      )}
+    </>
+  )
+}
+
+function ProjectRow({ project }: { project: ProjectItem }) {
+  return (
+    <div className={styles.projectRow}>
+      <ProjectThumb project={project} />
+      <div className={styles.projectInfo}>
+        <h3 className={styles.projectTitle}>{project.title}</h3>
+        <div className={styles.projectTags}>
+          {project.tech.split('/').map((tech) => (
+            <span key={tech.trim()} className={styles.tag}>
+              {tech.trim()}
+            </span>
+          ))}
+          {project.period && <span className={styles.projectPeriod}>{project.period}</span>}
+        </div>
+        <ul className={styles.projectBullets}>
           {project.bullets.map((bullet, index) => (
             <li key={index}>{bullet}</li>
           ))}
         </ul>
-      )}
-    </li>
+      </div>
+    </div>
   )
 }
 
 function Projects() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const activeGroup = projectGroups[activeIndex]
-
   return (
-    <section id="projects" className={`section ${styles.projects}`}>
+    <section id="projects" className="section">
       <div className="container">
-        <SectionHeading index="04" kicker="Projects" title="專案作品" />
+        <Reveal className="section-head">
+          <h2 className="title">
+            Projects<span className="dot">.</span>
+          </h2>
+          <p className="title-zh">專案作品</p>
+        </Reveal>
 
-        <div className={styles.tabs} role="tablist" aria-label="依公司分組的專案作品">
-          {projectGroups.map((group, index) => (
-            <button
-              key={group.company}
-              type="button"
-              role="tab"
-              aria-selected={index === activeIndex}
-              className={`${styles.tab} ${index === activeIndex ? styles.tabActive : ''}`}
-              onClick={() => setActiveIndex(index)}
-            >
-              {group.company}
-            </button>
-          ))}
-        </div>
+        <p className="section-note" style={{ marginBottom: 'var(--space-7)' }}>
+          依任職公司分組、依時間新到舊排列。每家公司的專案群組用淺灰底的圓角區塊包起來做視覺分組；區塊內個別專案維持橫條列表呈現，有截圖的橫條左側放縮圖，沒有截圖的橫條不留媒體欄位。
+        </p>
 
-        <ul key={activeGroup.company} className={styles.cardList}>
-          {activeGroup.projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} defaultOpen={index === 0} />
-          ))}
-        </ul>
+        {projectGroups.map((group, groupIndex) => (
+          <Reveal key={group.company} delay={groupIndex * 60} className={styles.companyGroup}>
+            <span className={styles.companyTag}>{group.company}</span>
+            <div className={styles.projectList}>
+              {group.projects.map((project) => (
+                <ProjectRow key={project.title} project={project} />
+              ))}
+            </div>
+          </Reveal>
+        ))}
       </div>
     </section>
   )

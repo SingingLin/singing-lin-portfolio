@@ -1,150 +1,95 @@
-.experience {
-  scroll-margin-top: 80px;
+.subLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 var(--space-5);
 }
 
-/* 調整：時間線拿掉漸層邊框，改純色 hairline，全站漸層只保留 Header logo 一處 */
-.timeline {
-  position: relative;
+.expTopGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.expItemLite {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding-left: 28px;
-  border-left: 2px solid var(--color-border-strong);
-}
-
-.item {
-  position: relative;
-}
-
-.dot {
-  position: absolute;
-  left: -34px;
-  top: 6px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 0 4px var(--color-primary-soft);
-}
-
-.dotPulse {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 4px var(--color-primary-soft);
-  }
-  50% {
-    box-shadow: 0 0 0 8px var(--color-primary-soft);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dotPulse {
-    animation: none;
-  }
-}
-
-.card {
-  display: flex;
-  gap: var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 22px 24px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.initial {
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  margin-top: 2px;
-  border-radius: 8px;
-  background: var(--color-primary-soft);
-  color: var(--color-primary-dark);
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.cardBody {
-  flex: 1;
-  min-width: 0;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary-soft);
-}
-
-.cardHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 3px;
+  padding: 12px 0;
 }
 
 .company {
-  font-size: var(--text-h3);
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--ink);
 }
 
 .period {
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--color-text-soft);
-  white-space: nowrap;
+  font-size: 11.5px;
+  color: var(--ink-faint);
 }
 
-.role {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-primary-dark);
-  margin-bottom: 12px;
+.eduItemLite {
+  padding: 12px 0;
 }
 
-.bullets {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.bullets li {
-  position: relative;
-  padding-left: 16px;
+.eduSchool {
+  font-weight: 700;
   font-size: 14.5px;
-  color: var(--color-text-muted);
-  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
 }
 
-.bullets li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 9px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-text-soft);
+.eduDetail {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 4px 0 0;
 }
 
-@media (max-width: 640px) {
-  .timeline {
-    padding-left: 20px;
-  }
+.eduPeriod {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+}
 
-  .dot {
-    left: -26px;
-  }
+/* Top Skills：CSS Grid 固定 3 欄排列，9 顆膠囊排滿 3 列，杜絕孤兒膠囊；無 hover 效果，維持靜態 */
+.skillsFlatWrap {
+  margin-top: var(--space-6);
+}
 
-  .card {
-    padding: 18px;
+.skillsFlat {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--blue-deep);
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .skillsFlat {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .expTopGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 }

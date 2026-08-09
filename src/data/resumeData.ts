@@ -7,9 +7,13 @@ export const profile = {
   name: '林心韻',
   nameEn: 'Singing Lin',
   title: '網頁前端工程師',
+  /** Hero 狀態徽章文字（v10 設計：純文字英文職稱，無底色）。 */
+  statusBadge: 'Frontend Engineer',
   initials: 'SL',
-  summary:
-    '目前致力於網頁前端開發，主要使用 React 開發網站，從事前端工程師已有七年經驗。我喜好研究新技術且擁有良好的態度及團隊合作能力，並樂於分享新知使團隊更進步。',
+  /** Hero 自我介紹文案（v10 定案）：第一句獨立一行，其餘接續下一行。 */
+  heroLead: '七年前端工程師經驗，主力技術為 React。',
+  heroRest:
+    '歷任國泰投信、華碩、網際威信等團隊，從企業後台系統、元件庫架構到銀行 Hybrid App 都實際做過；也曾獨立搭建 Grafana、ElasticSearch 監控系統。',
   location: 'Taipei, Taiwan',
   email: 'singinglin.0530@gmail.com',
   githubLabel: 'Github',
@@ -51,6 +55,23 @@ export interface SkillCategory {
   note?: string
   items: SkillItem[]
 }
+
+/**
+ * Experience 合併區塊裡的 Top Skills 膠囊清單（v10 設計：CSS Grid 固定 3 欄排列）。
+ * 刻意挑 9 項最具代表性的技能，跟下面 skillCategories 的完整分類資料分開維護，
+ * skillCategories 本身不刪，只是這次 UI 不逐分類渲染。
+ */
+export const topSkills: string[] = [
+  'Html',
+  'Css',
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Git',
+  'Grafana',
+  'ElasticSearch',
+  'Kibana',
+]
 
 export const skillCategories: SkillCategory[] = [
   {
@@ -176,12 +197,6 @@ export const projectGroups: ProjectGroup[] = [
           '/images/projects/cathay/etf-app/02.png',
           '/images/projects/cathay/etf-app/03.png',
         ],
-      },
-      {
-        title: '國泰開戶流程重塑',
-        tech: 'React / Vite',
-        period: '2024/08 - 2025/02',
-        bullets: ['專案架構建置技術支援、技術研討會議參與。'],
       },
       {
         title: '國泰E家人',
@@ -339,33 +354,36 @@ export interface OtherWork {
 }
 
 // 外包/接案作品
+// v10：9 筆順序整個反過來（原第 9 筆排到第一個）；新增 5 筆真實截圖（images 欄位），
+// 這 5 筆原本純連結、現在跟其他有截圖的項目一樣可透過 hover 圖示走 Lightbox 查看大圖。
 export const otherWorks: OtherWork[] = [
   {
-    title: '民泊専門の 清掃代行運営代行サービス（KURISAPO）',
-    images: [
-      '/images/projects/soho/kurisapo/01.png',
-      '/images/projects/soho/kurisapo/02.png',
-      '/images/projects/soho/kurisapo/03.png',
-    ],
+    title: 'LHDC Official Website',
+    linkLabel: 'LHDC',
+    href: 'https://lhdc.co/en',
+    images: ['/images/projects/soho/lhdc-official/01.png'],
   },
   {
-    title: 'MIT微笑標章販促活動',
-    images: ['/images/projects/soho/salemit/01.png'],
-  },
-  {
-    title: '叮噹營養師部落格',
-    linkLabel: 'DinDon Dietitian',
-    href: 'https://dindondietitian.com.tw/',
-  },
-  {
-    title: '中華賓士',
-    linkLabel: 'Benz',
-    href: 'https://www.cmi.mercedes-benz.com.tw/index',
+    title: 'LHDC ONE',
+    linkLabel: 'LHDC ONE',
+    href: 'https://one.lhdc.co/en/',
+    images: ['/images/projects/soho/lhdc-one/01.png'],
   },
   {
     title: '中華機械',
     linkLabel: 'Capital Machinery',
     href: 'https://www.capitalmachinery.com.tw/',
+    images: ['/images/projects/soho/capitalmachinery/01.png'],
+  },
+  {
+    title: '中華賓士',
+    linkLabel: 'Benz',
+    href: 'https://www.cmi.mercedes-benz.com.tw/index',
+    images: ['/images/projects/soho/mercedesbenz/01.png'],
+  },
+  {
+    title: '火影忍者動畫20週年特展活動',
+    images: ['/images/projects/soho/naruto20/01.png'],
   },
   {
     title: '收收UIUX設計顧問',
@@ -374,17 +392,21 @@ export const otherWorks: OtherWork[] = [
     images: ['/images/projects/soho/uiuxdesign/01.png'],
   },
   {
-    title: '火影忍者動畫20週年特展活動',
-    images: ['/images/projects/soho/naruto20/01.png'],
+    title: '叮噹營養師部落格',
+    linkLabel: 'DinDon Dietitian',
+    href: 'https://dindondietitian.com.tw/',
+    images: ['/images/projects/soho/dindondietitian/01.png'],
   },
   {
-    title: 'LHDC ONE',
-    linkLabel: 'LHDC ONE',
-    href: 'https://one.lhdc.co/en/',
+    title: 'MIT微笑標章販促活動',
+    images: ['/images/projects/soho/salemit/01.png'],
   },
   {
-    title: 'LHDC Official Website',
-    linkLabel: 'LHDC',
-    href: 'https://lhdc.co/en',
+    title: '民泊専門の 清掃代行運営代行サービス（KURISAPO）',
+    images: [
+      '/images/projects/soho/kurisapo/01.png',
+      '/images/projects/soho/kurisapo/02.png',
+      '/images/projects/soho/kurisapo/03.png',
+    ],
   },
 ]

@@ -1,4 +1,3 @@
-import { ArrowUp } from 'lucide-react'
 import { profile } from '../../data/resumeData'
 import styles from './Footer.module.css'
 
@@ -6,15 +5,23 @@ function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className={styles.footer}>
-      <div className={`container ${styles.inner}`}>
-        <p>
-          © {year} {profile.name} {profile.nameEn}
+    <footer id="contact" className={styles.siteFooter}>
+      <div className={`container ${styles.footerInner}`}>
+        <p className={styles.footerLeft}>
+          © {year} {profile.nameEn} · {profile.statusBadge}
         </p>
-        <a href="#top" className={styles.backTop}>
-          回到頂端
-          <ArrowUp size={15} strokeWidth={2.3} aria-hidden="true" />
-        </a>
+        <div className={styles.footerRight}>
+          <ul className={styles.footerLinks}>
+            <li>
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </li>
+            <li>
+              <a href={profile.githubHref} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </footer>
   )

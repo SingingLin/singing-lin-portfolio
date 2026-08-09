@@ -2,145 +2,114 @@
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  background: rgba(248, 249, 252, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
-  transition: box-shadow 0.2s ease;
-}
-
-.headerScrolled {
-  box-shadow: var(--shadow-sm);
-}
-
-.scrollProgress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  z-index: calc(var(--z-header) + 1);
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  transition: width 0.1s ease-out;
+  border-bottom: 1px solid var(--line);
 }
 
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  padding: 16px 0;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 800;
+  font-size: 16px;
   letter-spacing: -0.01em;
-  color: var(--color-text);
+  color: var(--ink);
 }
 
-.logoMark {
-  display: grid;
-  place-items: center;
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  /* 全站唯一保留的漸層：品牌簽名式的視覺記憶點（reference-driven redesign v3.0） */
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
+  transition: transform 0.25s ease;
+}
+
+.brand:hover .brandMark {
+  transform: rotate(-3deg) scale(1.05);
+}
+
+.brandMark svg {
+  width: 100%;
+  height: 100%;
 }
 
 .nav {
   display: flex;
-  gap: 2px;
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .navLink {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
+  padding: 6px 2px 6px 14px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-text-muted);
-  transition: background 0.15s ease, color 0.15s ease;
-  white-space: nowrap;
-  position: relative;
+  color: var(--ink-soft);
+  transition: color 0.15s ease;
 }
 
-.navIdx {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  opacity: 0.55;
-  margin-right: 4px;
-}
-
-.navLink:hover {
-  background: var(--color-primary-soft);
-  color: var(--color-primary-dark);
-}
-
-.navLinkActive {
-  background: var(--color-primary-soft);
-  color: var(--color-primary-dark);
-  font-weight: 700;
-  padding-left: 20px;
-}
-
-.navLinkActive::before {
+.navLink::before {
   content: '';
   position: absolute;
-  left: 9px;
+  left: 0;
   top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--blue-deep);
+  transform: translateY(-50%) scale(0);
+  transition: transform 0.18s ease;
+}
+
+.navLink:hover,
+.navLinkActive {
+  color: var(--ink);
+}
+
+.navLink:hover::before,
+.navLinkActive::before {
+  transform: translateY(-50%) scale(1);
 }
 
 .menuToggle {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 6px;
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
-}
-
-.menuToggle:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-
-@media (max-width: 1023px) {
-  .navIdx {
-    display: none;
-  }
+  color: var(--ink);
 }
 
 @media (max-width: 860px) {
   .nav {
-    position: absolute;
-    top: 72px;
-    left: var(--space-4);
-    right: var(--space-4);
-    flex-direction: column;
-    gap: var(--space-1);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-2) var(--space-4) var(--space-4);
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    right: 20px;
+    flex-direction: column;
+    gap: 0;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: var(--space-2) var(--space-4);
     box-shadow: var(--shadow-md);
   }
 
@@ -149,10 +118,10 @@
   }
 
   .navLink {
-    padding: 10px var(--space-2);
+    padding: 12px 2px 12px 14px;
   }
 
   .menuToggle {
-    display: flex;
+    display: inline-flex;
   }
 }
