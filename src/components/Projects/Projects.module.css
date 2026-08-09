@@ -80,12 +80,6 @@
   display: block;
 }
 
-/* 直式（手機 App）截圖：改用貼近真實比例的直式縮圖框，避免 4:3 橫框把直式截圖
-   裁到只剩中間一小條、跟旁邊文字比例不協調（見 Projects.tsx handleImageLoad 的偵測邏輯）。 */
-.projectThumbPortrait {
-  aspect-ratio: 9 / 16;
-}
-
 .projectThumb:hover img {
   transform: scale(1.05);
 }
@@ -139,6 +133,8 @@
   position: relative;
   padding-left: 13px;
   margin-bottom: 5px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .projectBullets li::before {

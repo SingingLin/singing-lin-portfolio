@@ -151,7 +151,7 @@ export const projectGroups: ProjectGroup[] = [
         period: '2024/02 - 2025/03',
         bullets: [
           '功能開發/Debug、配息紀錄功能重構、年度帳單功能開發、生物辨識功能串接。',
-          '新建各式共用元件（Tabs/Pagination/Button/Card/PopupBox/Modal/TitleSection/NoticeList/SvgIcon/Dropdown/DateRangePicker/SwitchButton）。',
+          '新建各式共用元件（Tabs/ Pagination/ Button/ Card/ PopupBox/ Modal/ TitleSection/ NoticeList/ SvgIcon/ Dropdown/ DateRangePicker/ SwitchButton）。',
           '建立程式碼排版及 Lint 規則、根據 UI Guideline 調整 tailwind 設定檔。',
           '修復字體與多次呼叫 API 問題、嘗試導入 TypeScript。',
         ],
