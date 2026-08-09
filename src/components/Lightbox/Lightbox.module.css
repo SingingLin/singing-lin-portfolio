@@ -61,7 +61,8 @@
   border-radius: 50%;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--control-shadow);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .close {
@@ -108,6 +109,7 @@
   background: var(--control-bg);
   border: 1px solid var(--control-border);
   backdrop-filter: blur(6px);
+  box-shadow: var(--control-shadow);
   padding: 7px 16px;
   border-radius: 999px;
 }
@@ -142,10 +144,12 @@
     height: 40px;
   }
 
+  /* v12：手機斷點原本 width/height:40px 又疊了 opacity:0.85，等於在已經偏淡的
+     半透明背景上再打七折，是箭頭在小螢幕上最不清楚的主因之一。這裡拿掉多餘的
+     opacity 衰減，並把可點擊區域拉到 44px（貼齊行動裝置最小觸控目標建議值）。 */
   .nav {
-    width: 40px;
-    height: 40px;
-    opacity: 0.85;
+    width: 44px;
+    height: 44px;
   }
 
   .navPrev {

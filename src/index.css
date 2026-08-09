@@ -47,10 +47,14 @@
 
   /* Lightbox 專用深色語境 token（獨立於全站淺色主題：圖片檢視器本來就該用暗背景） */
   --color-overlay: rgba(8, 9, 15, 0.97);
-  --control-bg: rgba(255, 255, 255, 0.12);
-  --control-bg-hover: rgba(255, 255, 255, 0.22);
-  --control-fg: #f7f7fa;
-  --control-border: rgba(255, 255, 255, 0.16);
+  /* v12 客戶回饋：控制元件（尤其左右切換箭頭）疊在淺色截圖上時對比度不足、幾乎融入背景。
+     背景改用低明度深色（而非原本的半透明白）並拉高不透明度，搭配明顯的 box-shadow，
+     不論底下的圖片本身是深是淺，按鈕圓形都能靠自身的暗底 + 陰影跟畫面拉出清楚的層次邊界。 */
+  --control-bg: rgba(10, 12, 18, 0.6);
+  --control-bg-hover: rgba(10, 12, 18, 0.8);
+  --control-fg: #ffffff;
+  --control-border: rgba(255, 255, 255, 0.32);
+  --control-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.4);
 
   color-scheme: light;
 }
