@@ -1,15 +1,10 @@
 import { Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { profile } from '../../data/resumeData'
+import { useEffect, useState, type MouseEvent } from 'react'
+import { useResumeData } from '../../data/useResumeData'
+import { useLanguage, useT } from '../../i18n/useLanguage'
 import styles from './Header.module.css'
 
-const NAV_ITEMS = [
-  { href: '#experience', label: '經歷' },
-  { href: '#projects', label: '專案作品' },
-  { href: '#freelance', label: '接案作品' },
-]
-
-const SECTION_IDS = ['top', ...NAV_ITEMS.map((item) => item.href.slice(1))]
+const SECTION_IDS = ['top', 'experience', 'projects', 'freelance']
 
 /**
  * 左上角品牌標記：正臉線條插畫（v10 設計，取代 v9 的側臉輪廓）。
@@ -52,6 +47,15 @@ function BrandMark() {
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeId, setActiveId] = useState('top')
+  const { profile } = useResumeData()
+  const { lang, toggleLang } = useLanguage()
+  const t = useT()
+
+  const NAV_ITEMS = [
+    { href: '#experience', label: t.nav.experience },
+    { href: '#projects', label: t.nav.projects },
+    { href: '#freelance', label: t.nav.freelance },
+  ]
 
   useEffect(() => {
     const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
@@ -77,12 +81,22 @@ function Header() {
     return () => observer.disconnect()
   }, [])
 
+  /** 點擊左上角品牌 Logo／名稱：平滑捲動回頁面最頂（#top）。
+   *  href="#top" 本身已透過 index.css 的 `html { scroll-behavior: smooth }` 可運作，
+   *  這裡額外用 JS 顯式處理，確保行為明確一致，並尊重 prefers-reduced-motion。 */
+  function handleBrandClick(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault()
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' })
+    setMenuOpen(false)
+  }
+
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
-        <a href="#top" className={styles.brand}>
+        <a href="#top" className={styles.brand} onClick={handleBrandClick}>
           <BrandMark />
-          {profile.name}
+          {profile.nameEn}
         </a>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
@@ -102,15 +116,30 @@ function Header() {
           })}
         </nav>
 
-        <button
-          type="button"
-          className={styles.menuToggle}
-          aria-label="切換選單"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={22} strokeWidth={2.25} /> : <Menu size={22} strokeWidth={2.25} />}
-        </button>
+        <div className={styles.actionsGroup}>
+          <button
+            type="button"
+            className={styles.langToggle}
+            aria-label={t.nav.toggleLanguage}
+            onClick={toggleLang}
+          >
+            <span className={lang === 'zh' ? styles.langActive : undefined}>中</span>
+            <span className={styles.langDivider} aria-hidden="true">
+              /
+            </span>
+            <span className={lang === 'en' ? styles.langActive : undefined}>EN</span>
+          </button>
+
+          <button
+            type="button"
+            className={styles.menuToggle}
+            aria-label={t.nav.toggleMenu}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={22} strokeWidth={2.25} /> : <Menu size={22} strokeWidth={2.25} />}
+          </button>
+        </div>
       </div>
     </header>
   )

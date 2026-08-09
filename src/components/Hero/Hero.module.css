@@ -151,7 +151,7 @@
   font-weight: 600;
   font-size: 14px;
   padding: 13px 26px;
-  border-radius: 8px;
+  border-radius: 16px;
   border: 1px solid var(--line-strong);
   text-decoration: none;
   overflow: hidden;
@@ -239,7 +239,8 @@
   .visual {
     order: 2;
     max-width: 240px;
-    margin: var(--space-6) auto 0;
+    /* 客戶回饋手機版文字跟大頭照間距太大：從 space-6(32px) 縮小到 space-3(12px)。 */
+    margin: var(--space-3) auto 0;
   }
 }
 

@@ -4,10 +4,11 @@ import Experience from './components/Experience/Experience'
 import Projects from './components/Projects/Projects'
 import OtherWorks from './components/OtherWorks/OtherWorks'
 import Footer from './components/Footer/Footer'
+import { LanguageProvider } from './i18n/LanguageContext'
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <Header />
       <main>
         <Hero />
@@ -16,7 +17,7 @@ function App() {
         <OtherWorks />
       </main>
       <Footer />
-    </>
+    </LanguageProvider>
   )
 }
 

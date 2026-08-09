@@ -1,4 +1,5 @@
-import { profile } from '../../data/resumeData'
+import { useResumeData } from '../../data/useResumeData'
+import { useLanguage, useT } from '../../i18n/useLanguage'
 import { withBase } from '../../utils/url'
 import Reveal from '../Reveal/Reveal'
 import styles from './Hero.module.css'
@@ -13,6 +14,10 @@ function ArrowIcon() {
 }
 
 function Hero() {
+  const { profile } = useResumeData()
+  const { lang } = useLanguage()
+  const t = useT()
+
   return (
     <section id="top" className={styles.hero}>
       <div className={`container ${styles.grid}`}>
@@ -22,7 +27,7 @@ function Hero() {
           <Reveal delay={80}>
             <h1 className={styles.heroTitle}>
               <span className={styles.nameEn}>{profile.nameEn}</span>
-              <span className={styles.nameZh}>{profile.name}</span>
+              {lang === 'zh' && <span className={styles.nameZh}>{profile.name}</span>}
             </h1>
           </Reveal>
 
@@ -50,7 +55,7 @@ function Hero() {
           <Reveal delay={320}>
             <div className={styles.actions}>
               <a className={styles.btnPrimary} href="#projects">
-                <span className={styles.btnLabel}>查看作品</span>
+                <span className={styles.btnLabel}>{t.hero.ctaLabel}</span>
                 <span className={styles.btnArrow} aria-hidden="true">
                   <ArrowIcon />
                 </span>

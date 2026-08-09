@@ -85,6 +85,41 @@
   transform: translateY(-50%) scale(1);
 }
 
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.langToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.langToggle:hover {
+  border-color: var(--blue-deep);
+}
+
+.langDivider {
+  color: var(--line-strong);
+}
+
+.langActive {
+  color: var(--blue-deep);
+}
+
 .menuToggle {
   display: none;
   align-items: center;

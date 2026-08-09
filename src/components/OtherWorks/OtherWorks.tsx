@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import { otherWorks, type OtherWork } from '../../data/resumeData'
-import { withBase } from '../../utils/url'
+import type { OtherWork } from '../../data/resumeData.types'
+import { useResumeData } from '../../data/useResumeData'
+import { useT } from '../../i18n/useLanguage'
+import { getProjectImages } from '../../utils/projectImages'
 import Lightbox from '../Lightbox/Lightbox'
 import Reveal from '../Reveal/Reveal'
 import styles from './OtherWorks.module.css'
@@ -25,13 +27,36 @@ function ExternalLinkIcon() {
 }
 
 /**
- * 有截圖的項目：圖片疊字，hover 圓形色塊底的放大鏡 icon，點擊開 Lightbox。
- * 純連結項目（無截圖）：實心藍底疊字，hover 圓形色塊底的外部連結箭頭，點擊前往網站。
- * 這次補圖後，原本 5 筆純連結項目多了 images，優先走 Lightbox（跟其餘有截圖項目一致）。
+ * 判斷優先權（v11 客戶回饋修正）：以「有沒有真實外部連結（href）」為主，不是以有沒有截圖判斷。
+ * - 有 href：不管有沒有截圖都優先走外連，hover 顯示「前往網站」icon，點擊開新分頁。
+ *   若該項目也有截圖，截圖仍當作卡片底圖用（視覺不變），只是點擊行為改成外連而非開 Lightbox。
+ * - 沒有 href：hover 顯示「查看圖片」icon，點擊開 Lightbox 查看截圖（沿用既有機制）。
  */
 function FreelanceTile({ work }: { work: OtherWork }) {
   const [index, setIndex] = useState<number | null>(null)
-  const images = work.images ?? []
+  const t = useT()
+  const images = getProjectImages(work.imagesDir)
+  const thumbSrc = images[0]
+
+  if (work.href) {
+    return (
+      <a
+        className={styles.freelanceTile}
+        href={work.href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={t.gallery.visitAria(work.title)}
+      >
+        {thumbSrc ? <img src={thumbSrc} alt="" loading="lazy" /> : <div className={styles.linkBg} />}
+        <div className={styles.freelanceTileOverlay}>
+          <span className={styles.iconCircle}>
+            <ExternalLinkIcon />
+          </span>
+        </div>
+        <span className={styles.freelanceTileName}>{work.title}</span>
+      </a>
+    )
+  }
 
   if (images.length > 0) {
     return (
@@ -40,9 +65,9 @@ function FreelanceTile({ work }: { work: OtherWork }) {
           type="button"
           className={styles.freelanceTile}
           onClick={() => setIndex(0)}
-          aria-label={`放大檢視 ${work.title} 截圖`}
+          aria-label={t.gallery.zoomAria(work.title)}
         >
-          <img src={withBase(images[0])} alt="" loading="lazy" />
+          <img src={thumbSrc} alt="" loading="lazy" />
           <div className={styles.freelanceTileOverlay}>
             <span className={styles.iconCircle}>
               <MagnifierIcon />
@@ -59,25 +84,17 @@ function FreelanceTile({ work }: { work: OtherWork }) {
   }
 
   return (
-    <a
-      className={`${styles.freelanceTile} ${styles.isLinkOnly}`}
-      href={work.href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={`前往 ${work.title}`}
-    >
+    <div className={`${styles.freelanceTile} ${styles.isLinkOnly}`}>
       <div className={styles.linkBg} />
-      <div className={styles.freelanceTileOverlay}>
-        <span className={styles.iconCircle}>
-          <ExternalLinkIcon />
-        </span>
-      </div>
       <span className={styles.freelanceTileName}>{work.title}</span>
-    </a>
+    </div>
   )
 }
 
 function OtherWorks() {
+  const { otherWorks } = useResumeData()
+  const t = useT()
+
   return (
     <section id="freelance" className="section alt">
       <div className="container">
@@ -85,13 +102,8 @@ function OtherWorks() {
           <h2 className="title">
             Freelance<span className="dot">.</span>
           </h2>
-          <p className="title-zh">接案作品</p>
+          <p className="title-zh">{t.section.freelance.caption}</p>
         </Reveal>
-
-        <p className="section-note" style={{ marginBottom: 'var(--space-7)' }}>
-          三個一排網格呈現，每個項目只顯示專案名稱，疊在圖片左下角。滑鼠移入圖片，圓形色塊背景的
-          icon 會從下方浮現、彈跳到畫面置中：有截圖項目顯示放大鏡（開啟 Lightbox），純連結項目顯示外部連結箭頭（前往網站）。
-        </p>
 
         <div className={styles.freelanceGrid}>
           {otherWorks.map((work) => (

@@ -1,8 +1,11 @@
-import { profile } from '../../data/resumeData'
+import { useResumeData } from '../../data/useResumeData'
+import { useT } from '../../i18n/useLanguage'
 import styles from './Footer.module.css'
 
 function Footer() {
   const year = new Date().getFullYear()
+  const { profile } = useResumeData()
+  const t = useT()
 
   return (
     <footer id="contact" className={styles.siteFooter}>
@@ -17,7 +20,7 @@ function Footer() {
             </li>
             <li>
               <a href={profile.githubHref} target="_blank" rel="noreferrer">
-                GitHub
+                {t.footer.githubLabel}
               </a>
             </li>
           </ul>

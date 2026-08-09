@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { withBase } from '../../utils/url'
+import { useT } from '../../i18n/useLanguage'
 import styles from './Lightbox.module.css'
 
 interface LightboxProps {
@@ -28,6 +28,7 @@ interface LightboxProps {
  * 大的小的都會完整顯示、不裁切、不變形。
  */
 function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
+  const t = useT()
   const goPrev = useCallback(
     () => onNavigate((index - 1 + images.length) % images.length),
     [index, images.length, onNavigate],
@@ -60,14 +61,14 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-label={alt}>
       <div className={styles.stage}>
         <img
-          src={withBase(images[index])}
-          alt={`${alt} 截圖 ${index + 1}`}
+          src={images[index]}
+          alt={t.lightbox.screenshotAlt(alt, index + 1)}
           className={styles.image}
           onClick={(event) => event.stopPropagation()}
         />
       </div>
 
-      <button type="button" className={styles.close} onClick={onClose} aria-label="關閉放大檢視">
+      <button type="button" className={styles.close} onClick={onClose} aria-label={t.lightbox.close}>
         <X size={20} strokeWidth={2.25} />
       </button>
 
@@ -80,7 +81,7 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
               event.stopPropagation()
               goPrev()
             }}
-            aria-label="上一張"
+            aria-label={t.lightbox.prev}
           >
             <ChevronLeft size={26} strokeWidth={2.25} />
           </button>
@@ -92,7 +93,7 @@ function Lightbox({ images, alt, index, onClose, onNavigate }: LightboxProps) {
               event.stopPropagation()
               goNext()
             }}
-            aria-label="下一張"
+            aria-label={t.lightbox.next}
           >
             <ChevronRight size={26} strokeWidth={2.25} />
           </button>

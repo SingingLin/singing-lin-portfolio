@@ -1,28 +1,45 @@
-import { useState } from 'react'
-import { projectGroups, type ProjectItem } from '../../data/resumeData'
-import { withBase } from '../../utils/url'
+import { useState, type SyntheticEvent } from 'react'
+import type { ProjectItem } from '../../data/resumeData.types'
+import { useResumeData } from '../../data/useResumeData'
+import { useT } from '../../i18n/useLanguage'
+import { getProjectImages } from '../../utils/projectImages'
 import Lightbox from '../Lightbox/Lightbox'
 import Reveal from '../Reveal/Reveal'
 import styles from './Projects.module.css'
 
-/** 專案縮圖：有截圖才渲染，點擊開 Lightbox（沿用既有 createPortal 機制）。 */
+/**
+ * 專案縮圖：有截圖才渲染，點擊開 Lightbox（沿用既有 createPortal 機制）。
+ *
+ * 根因修正（國泰投信 ETF App 破版）：縮圖框原本固定 4:3 橫式比例＋object-fit:cover，
+ * 但手機 App 專案的截圖本身是直式（例如 1080x2340），塞進橫式框會被裁到只剩中間一小條，
+ * 看起來擠壓、比例跟旁邊文字不協調。這裡改成載入後用 naturalWidth/naturalHeight 偵測圖片
+ * 實際方向，直式圖片改套用直式比例的縮圖框（見 Projects.module.css 的 projectThumbPortrait），
+ * 讓裁切幅度合理、縮圖看起來像正常的手機截圖，不再是被硬壓扁的長條。
+ */
 function ProjectThumb({ project }: { project: ProjectItem }) {
   const [index, setIndex] = useState<number | null>(null)
-  const images = project.images ?? []
+  const [isPortrait, setIsPortrait] = useState(false)
+  const t = useT()
+  const images = getProjectImages(project.imagesDir)
 
   if (images.length === 0) {
     return null
+  }
+
+  function handleImageLoad(event: SyntheticEvent<HTMLImageElement>) {
+    const img = event.currentTarget
+    setIsPortrait(img.naturalHeight > img.naturalWidth)
   }
 
   return (
     <>
       <button
         type="button"
-        className={styles.projectThumb}
+        className={`${styles.projectThumb} ${isPortrait ? styles.projectThumbPortrait : ''}`}
         onClick={() => setIndex(0)}
-        aria-label={`放大檢視 ${project.title} 截圖`}
+        aria-label={t.gallery.zoomAria(project.title)}
       >
-        <img src={withBase(images[0])} alt="" loading="lazy" />
+        <img src={images[0]} alt="" loading="lazy" onLoad={handleImageLoad} />
       </button>
 
       {index !== null && (
@@ -57,6 +74,9 @@ function ProjectRow({ project }: { project: ProjectItem }) {
 }
 
 function Projects() {
+  const { projectGroups } = useResumeData()
+  const t = useT()
+
   return (
     <section id="projects" className="section">
       <div className="container">
@@ -64,12 +84,8 @@ function Projects() {
           <h2 className="title">
             Projects<span className="dot">.</span>
           </h2>
-          <p className="title-zh">專案作品</p>
+          <p className="title-zh">{t.section.projects.caption}</p>
         </Reveal>
-
-        <p className="section-note" style={{ marginBottom: 'var(--space-7)' }}>
-          依任職公司分組、依時間新到舊排列。每家公司的專案群組用淺灰底的圓角區塊包起來做視覺分組；區塊內個別專案維持橫條列表呈現，有截圖的橫條左側放縮圖，沒有截圖的橫條不留媒體欄位。
-        </p>
 
         {projectGroups.map((group, groupIndex) => (
           <Reveal key={group.company} delay={groupIndex * 60} className={styles.companyGroup}>

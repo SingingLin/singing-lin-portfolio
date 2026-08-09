@@ -78,11 +78,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--blue-deep);
+  background: var(--orange);
   box-shadow: 0 10px 22px rgba(20, 24, 31, 0.28);
   opacity: 0;
   transform: translateY(34px);
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.61, 0.64, 1);
+}
+
+button .iconCircle {
+  background: var(--orange);
+}
+
+a .iconCircle {
+  background: var(--mist);
 }
 
 .freelanceTile:hover .iconCircle {

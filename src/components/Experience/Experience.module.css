@@ -3,8 +3,8 @@
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-faint);
-  margin: 0 0 var(--space-5);
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-2);
 }
 
 .expTopGrid {
@@ -62,9 +62,10 @@
 }
 
 .skillsFlat {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  padding: 12px 0;
 }
 
 .skillPill {
@@ -75,16 +76,10 @@
   color: var(--ink);
   font-weight: 500;
   font-size: 13px;
-  padding: 8px 18px;
+  padding: 6px 20px;
   border-radius: 999px;
   border: 1px solid var(--blue-deep);
   text-align: center;
-}
-
-@media (max-width: 480px) {
-  .skillsFlat {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 860px) {
