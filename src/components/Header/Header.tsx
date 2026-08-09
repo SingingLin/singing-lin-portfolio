@@ -99,46 +99,48 @@ function Header() {
           {profile.nameEn}
         </a>
 
-        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
-          {NAV_ITEMS.map((item) => {
-            const isActive = item.href === `#${activeId}`
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
-                aria-current={isActive ? 'true' : undefined}
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </a>
-            )
-          })}
-        </nav>
+        <div className={styles.rightGroup}>
+          <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
+            {NAV_ITEMS.map((item) => {
+              const isActive = item.href === `#${activeId}`
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
+          </nav>
 
-        <div className={styles.actionsGroup}>
-          <button
-            type="button"
-            className={styles.langToggle}
-            aria-label={t.nav.toggleLanguage}
-            onClick={toggleLang}
-          >
-            <span className={lang === 'zh' ? styles.langActive : undefined}>中</span>
-            <span className={styles.langDivider} aria-hidden="true">
-              /
-            </span>
-            <span className={lang === 'en' ? styles.langActive : undefined}>EN</span>
-          </button>
+          <div className={styles.actionsGroup}>
+            <button
+              type="button"
+              className={styles.langToggle}
+              aria-label={t.nav.toggleLanguage}
+              onClick={toggleLang}
+            >
+              <span className={lang === 'zh' ? styles.langActive : undefined}>中</span>
+              <span className={styles.langDivider} aria-hidden="true">
+                /
+              </span>
+              <span className={lang === 'en' ? styles.langActive : undefined}>EN</span>
+            </button>
 
-          <button
-            type="button"
-            className={styles.menuToggle}
-            aria-label={t.nav.toggleMenu}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X size={22} strokeWidth={2.25} /> : <Menu size={22} strokeWidth={2.25} />}
-          </button>
+            <button
+              type="button"
+              className={styles.menuToggle}
+              aria-label={t.nav.toggleMenu}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X size={22} strokeWidth={2.25} /> : <Menu size={22} strokeWidth={2.25} />}
+            </button>
+          </div>
         </div>
       </div>
     </header>

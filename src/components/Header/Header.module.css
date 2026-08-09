@@ -43,6 +43,12 @@
   height: 100%;
 }
 
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
 .nav {
   display: flex;
   gap: var(--space-6);
