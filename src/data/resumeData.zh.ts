@@ -317,7 +317,7 @@ export const otherWorks: OtherWork[] = [
   {
     title: '收收UIUX設計顧問',
     linkLabel: 'UIUX Design',
-    href: 'https://uiuxdesign.tw/',
+    href: 'https://uiux-retriever.vercel.app',
     imagesDir: 'soho/uiuxdesign',
   },
   {
