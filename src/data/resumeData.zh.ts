@@ -185,9 +185,9 @@ export const projectGroups: ProjectGroup[] = [
       },
       {
         title: '人資儀表板管理系統',
-        tech: 'Vue3 / Tailwind',
-        period: '2023/05 - 2023/07',
-        bullets: ['前後台人力佈局切版/功能開發、元件模組化。'],
+        tech: 'Vue2 / Tailwind',
+        period: '2023/06 - 2023/07',
+        bullets: ['人力佈局切版/部分功能開發。'],
         imagesDir: 'foxconn/hr-dashboard',
       },
     ],
