@@ -191,8 +191,8 @@ export const projectGroups: ProjectGroup[] = [
       },
       {
         title: 'HR Dashboard Management System',
-        tech: 'Vue3 / Tailwind',
-        period: '2023/05 - 2023/07',
+        tech: 'Vue2 / Tailwind',
+        period: '2023/06',
         bullets: ['Markup and feature development for front- and back-office workforce views; modularized components.'],
         imagesDir: 'foxconn/hr-dashboard',
       },
@@ -224,7 +224,6 @@ export const projectGroups: ProjectGroup[] = [
           'Lead owner of the component library project — triaged issues and drove the architecture in a monorepo setup.',
           'Published packages to a private registry via Rollup; built the user-guide site with Webpack5.',
           'Built Avatar/Badge/Card/Button/Text Field/Select/Radio/Checkbox/Pagination and other components.',
-          'Implemented CSS-in-JS with Styled Components.',
         ],
         imagesDir: 'asus/cms-elements',
       },

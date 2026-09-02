@@ -186,7 +186,7 @@ export const projectGroups: ProjectGroup[] = [
       {
         title: '人資儀表板管理系統',
         tech: 'Vue2 / Tailwind',
-        period: '2023/06 - 2023/07',
+        period: '2023/06',
         bullets: ['人力佈局切版/部分功能開發。'],
         imagesDir: 'foxconn/hr-dashboard',
       },
@@ -218,7 +218,6 @@ export const projectGroups: ProjectGroup[] = [
           '元件庫專案主負責人、分發 issue、架構構想、Monorepo 實踐。',
           'Rollup 打包發佈私有雲、Webpack5 建置使用者指南網站。',
           '已建置 Avatar/Badge/Card/Button/Text Field/Select/Radio/Checkbox/Pagination 等元件。',
-          'Styled Component 實踐 CSS in JS。',
         ],
         imagesDir: 'asus/cms-elements',
       },
